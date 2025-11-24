@@ -54,8 +54,17 @@ function renderProfile(data) {
   Object.entries(data).forEach(([key, value]) => {
     let item = document.createElement("div");
     item.classList.add("profile-card-item");
-    item.innerHTML = `<b>${key}</b>: ${value}`;
+    if (key.includes("url")) {
+      item.innerHTML = `<div><b>${key}</b>: <a href = ${value} target='_blank'>${value}</a></div>`;
+    } else {
+      item.innerHTML = `<div><b>${key}</b>: ${value}</div>`;
+    }
 
     profile.appendChild(item);
   });
 }
+
+let avatar = document.createElement("img");
+avatar.src = "user-icon-vector-profile-solid.webp";
+
+document.getElementsByClassName("avatar").innerHTML = avatar;

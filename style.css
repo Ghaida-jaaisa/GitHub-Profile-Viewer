@@ -78,11 +78,16 @@ input {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
+.profile-card-item a:hover {
+  font-weight: bold;
+}
+
 .avatar {
   width: 100px;
   height: 100px;
   border-radius: 50%;
   border: 2px solid var(--accent);
+  grid-template-columns: 1fr;
 }
 
 h2 {
