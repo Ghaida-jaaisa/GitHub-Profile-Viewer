@@ -7,13 +7,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const saved = localStorage.getItem("latestRequest");
   if (saved) {
     const latestRequest = JSON.parse(saved);
-    profile.innerHTML = latestRequest.json();
+    renderProfile(latestRequest);
   }
 });
 
 function getUsername() {
-  if (username.value != null) {
-    return username.value;
+  if (username.value.trim() !== "") {
+    return username.value.trim();
   } else {
     alert("Please enter valid username");
     return;
@@ -39,15 +39,23 @@ async function fetchGithubAPI() {
   fetch(url)
     .then((r) => r.json())
     .then((data) => {
-      Object.entries(data).forEach(([key, value]) => {
-        let item = document.createElement("div");
-        item.classList.add("profile-card-item");
-        item.innerHTML = `<b>${key}</b>: ${value}`;
-
-        profile.appendChild(item);
-        lastUserFetched = username;
-        localStorage.setItem("latestRequest", JSON.stringify(data));
-      });
+      if (data.message === "Not Found") {
+        profile.innerHTML = "<p>User not found</p>";
+        return;
+      }
+      renderProfile(data);
+      lastUserFetched = username;
+      localStorage.setItem("latestRequest", JSON.stringify(data));
     })
     .catch((err) => console.error("Error while fetching data"));
+}
+
+function renderProfile(data) {
+  Object.entries(data).forEach(([key, value]) => {
+    let item = document.createElement("div");
+    item.classList.add("profile-card-item");
+    item.innerHTML = `<b>${key}</b>: ${value}`;
+
+    profile.appendChild(item);
+  });
 }
