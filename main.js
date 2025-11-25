@@ -52,12 +52,16 @@ async function fetchGithubAPI() {
 
 function renderProfile(data) {
   Object.entries(data).forEach(([key, value]) => {
+    // skip non-nessesary items
+    if (value === null || value === "") {
+      return;
+    }
     let item = document.createElement("div");
-    item.classList.add("profile-card-item");
+    item.classList.add("profile-details-item");
     if (key.includes("url")) {
-      item.innerHTML = `<div><b>${key}</b>: <a href = ${value} target='_blank'>${value}</a></div>`;
+      item.innerHTML = `<b>${key}:</b><a href = ${value} target='_blank'>${value}</a>`;
     } else {
-      item.innerHTML = `<div><b>${key}</b>: ${value}</div>`;
+      item.innerHTML = `<b>${key}:</b> ${value}`;
     }
 
     profile.appendChild(item);

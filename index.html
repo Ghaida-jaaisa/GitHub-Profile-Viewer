@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GitHub Profile Viewer</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="shortcut icon" href="magnifying-glass-solid-full.svg" type="image/x-icon">
+    <link
+      rel="shortcut icon"
+      href="magnifying-glass-solid-full.svg"
+      type="image/x-icon"
+    />
     <script src="main.js" defer></script>
   </head>
   <body>
@@ -22,9 +26,22 @@
         <button type="submit" class="btn" id="fetchBtn">Fetch Profile</button>
       </form>
       <section id="userData">
-        <!-- <div class="avatar"></div> -->
-        <div id="profile" class="profile-card"></div>
+        <div id="profile-card">
+          <div class="profile-avatar-wrapper">
+            <img
+              src="user-icon-vector-profile-solid.webp"
+              alt=""
+              class="profile-img"
+            />
+          </div>
+          <h2 id="name">Ghaida</h2>
+          <p id="bio">22</p>
+          <p id="company">AAUP</p>
+        </div>
+        <div id="profile" class="profile-details"></div>
       </section>
     </main>
+
+    <button class="btn" id="backToTop">Back To Top</button>
   </body>
 </html>
