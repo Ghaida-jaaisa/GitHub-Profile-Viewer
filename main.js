@@ -6,12 +6,14 @@ let cardName = document.getElementById("name");
 let cardBio = document.getElementById("bio");
 let cardCompany = document.getElementById("company");
 let userData = document.getElementById("userData");
+let form = document.getElementsByTagName("form");
 let lastUserFetched;
 
 document.addEventListener("DOMContentLoaded", () => {
   const saved = localStorage.getItem("latestRequest");
   if (saved) {
     const latestRequest = JSON.parse(saved);
+    username.value = latestRequest["login"];
     renderProfile(latestRequest);
   } else {
     // first time
