@@ -14,18 +14,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const latestRequest = JSON.parse(saved);
     renderProfile(latestRequest);
   } else {
+    // first time
     userData.style.display = "none";
   }
 });
-
-function getUsername() {
-  if (username.value.trim() !== "") {
-    return username.value.trim();
-  } else {
-    alert("Please enter valid username");
-    return;
-  }
-}
 
 fetchBtn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -33,8 +25,21 @@ fetchBtn.addEventListener("click", (e) => {
   fetchGithubAPI();
 });
 
+function getUsername() {
+  if (username.value.trim() !== "") {
+    return username.value.trim();
+  } else {
+    alert("Please enter valid username");
+    return "";
+  }
+}
+
 async function fetchGithubAPI() {
   let username = getUsername();
+  if (username === "") {
+    userData.style.display = "none";
+    return;
+  }
   // Don't re-send new request for the same user
   if (lastUserFetched == username) {
     console.log("Request cancelled");
