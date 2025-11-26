@@ -5,6 +5,7 @@ let profileImg = document.getElementsByClassName("profile-img")[0];
 let cardName = document.getElementById("name");
 let cardBio = document.getElementById("bio");
 let cardCompany = document.getElementById("company");
+let userData = document.getElementById("userData");
 let lastUserFetched;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -12,6 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (saved) {
     const latestRequest = JSON.parse(saved);
     renderProfile(latestRequest);
+  } else {
+    userData.style.display = "none";
   }
 });
 
@@ -55,6 +58,7 @@ async function fetchGithubAPI() {
 }
 
 function renderProfile(data) {
+  userData.style.display = "";
   let cardInfo = { name: "", bio: "", company: "" };
   console.log("cardInfo:", cardInfo);
   Object.entries(data).forEach(([key, value]) => {
