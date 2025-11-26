@@ -60,13 +60,6 @@ input {
 .btn:hover {
   background: #2ea043;
 }
-/* 
-.avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 2px solid var(--accent);
-} */
 
 h2 {
   margin: 12px 0 4px;
@@ -88,7 +81,8 @@ a:hover {
 }
 /* New Style */
 
-#profile-card {
+#profile-card,
+#profile-card a {
   width: 33%;
   height: fit-content;
   background: whitesmoke;
@@ -139,6 +133,7 @@ a:hover {
   align-items: flex-start;
   border-radius: 20px;
   padding: 20px;
+  color: var(--text);
 }
 
 #backToTop {
@@ -174,13 +169,9 @@ a:hover {
   margin: 5px;
 }
 
-.stat {
-  /* color: var(--text); */
-}
-
 .follow img,
 #location-img,
-.starContainer img{
+.starContainer img {
   width: 20px;
 }
 
@@ -204,11 +195,51 @@ a:hover {
   align-items: center;
   gap: 5px;
 }
-
-.repo_link {
-  background-color: #6c63ff;
+.starContainer {
+  color: var(--text);
+  font-weight: bold;
+  background-color: var(--bg);
   padding: 5px 10px;
   border-radius: 20px;
   text-decoration: none;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 5px;
+}
+.Repobtn {
+  position: relative;
+  padding: 5px 10px;
+  font-weight: 600;
+  color: white;
+  background: none;
+  border: 2px solid #646cff;
+  border-radius: 20px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.liquid {
+  background: linear-gradient(#646cff 0 0) no-repeat calc(200% - var(--p, 0%))
+    100% / 200% var(--p, 0.2em);
+  transition: 0.3s var(--t, 0s),
+    background-position 0.3s calc(0.3s - var(--t, 0s));
 }
 
+.liquid:hover {
+  --p: 100%;
+  --t: 0.3s;
+  color: #fff;
+}
+.starContainer .starCount {
+  /* background-color: red; */
+  border-radius: 50%;
+  padding: 0 5px;
+  border: 1px var(--small-card) solid;
+}
+
+.repo_link {
+  color: whitesmoke;
+  text-decoration: none;
+  text-decoration: none !important;
+}

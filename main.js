@@ -66,7 +66,7 @@ async function fetchGithubAPI() {
       lastUserFetched = username;
       localStorage.setItem("latestRequest", JSON.stringify(data));
     })
-    .catch((err) => console.error("Error while fetching data"));
+    .catch((err) => console.error("Error while fetching data:", err.message));
 }
 
 function renderProfile(data) {
@@ -130,13 +130,17 @@ function renderCard({
 }
 
 async function fetchGithubRepos(url) {
-  console.log("Start Fetch repos");
-  fetch(url)
-    .then((r) => r.json())
-    .then((data) => {
-      data;
-    })
-    .catch((e) => console.log("Error occur while fetching repos"));
+  try {
+    console.log("Start Fetch repos");
+    const result = await fetch(url);
+    if (!result.ok) {
+      throw new Error(`HTTP Error: ${response.status}`);
+    }
+    const data = result.json();
+    return data;
+  } catch (err) {
+    console.error("Error occurred while fetching repos:", err.message);
+  }
 }
 
 function resetCardInfo() {
@@ -148,15 +152,15 @@ function resetCardInfo() {
   cardlocation.textContent = "";
 }
 
-function buildRepoCard({ repoName, desc, count, repoURL }) {
+function buildRepoCard({ name, description, stargazers_count, svn_url }) {
   // recieve string data
   const item = document.createElement("div");
   item.classList.add("profile-repo");
   const title = document.createElement("h3");
-  title.textContent = repoName;
+  title.textContent = name;
   //
-  const description = document.createElement("p");
-  description.textContent = desc;
+  const desc = document.createElement("p");
+  desc.textContent = description;
   //
   const info = document.createElement("div");
   info.classList.add("info");
@@ -169,15 +173,25 @@ function buildRepoCard({ repoName, desc, count, repoURL }) {
   star.textContent = "Star";
   const starCount = document.createElement("span");
   starCount.classList.add("starCount"); // handle in css
-  starCount.textContent = count;
+  starCount.textContent = stargazers_count;
   // View repo
+
+  const viewBtn = document.createElement("button");
+  viewBtn.classList.add("Repobtn", "liquid");
   const viewRepo = document.createElement("a");
   viewRepo.classList.add("repo_link");
-  viewRepo.href = repoURL;
+  viewRepo.textContent = "Visit Repo";
+  viewRepo.href = svn_url;
   viewRepo.target = "_blank";
-
+  viewBtn.appendChild(viewRepo);
+  //
+  starContainer.append(starIcon);
+  starContainer.append(star);
+  starContainer.append(starCount);
+  //
   info.append(starContainer);
-  info.append(viewRepo);
+  info.append(viewBtn);
+  //
   item.append(title);
   item.append(description);
   item.append(info);
@@ -186,23 +200,22 @@ function buildRepoCard({ repoName, desc, count, repoURL }) {
 }
 async function renderRepos(url) {
   let data = await fetchGithubRepos(url);
-  console.log(data);
-  console.log(data);
   const repoInfo = {
     name: "",
     description: "",
     stargazers_count: 0,
-    url: "",
+    svn_url: "",
   };
 
-  let requiredData = ["name", "url", "description", "stargazers_count"];
+  let requiredData = ["name", "svn_url", "description", "stargazers_count"];
   Object.entries(data).forEach(([key, value]) => {
     Object.entries(value).forEach(([key, value]) => {
       if (requiredData.includes(key)) {
-        repoInfo[key] = value;
+        repoInfo[key] = value ?? ""; // handle null desc value
       }
     });
     console.log(repoInfo);
     let card = buildRepoCard(repoInfo);
+    profile.append(card);
   });
 }
