@@ -247,3 +247,64 @@ a:hover {
 .info {
   align-self: flex-end;
 }
+
+/* ==== Media Query === */
+@media screen and (max-width: 1250px) {
+  #follow-info {
+    flex-direction: column;
+  }
+  #profile-card {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .info {
+    flex-direction: column-reverse;
+    align-self: center;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  #userData {
+    flex-direction: column;
+  }
+  #profile-card {
+    position: static;
+    width: 100%;
+    padding: 10px 0;
+  }
+  .profile-repo {
+    max-width: 100%;
+  }
+  .info {
+    flex-direction: row;
+    align-self: flex-end;
+  }
+  #follow-info {
+    flex-direction: row;
+  }
+  .container {
+    max-width: calc(100% - 120px);
+    margin: 0 auto;
+  }
+
+  .profile-avatar-wrapper {
+    right: 50%;
+    top: 50px;
+    position: relative;
+    border-radius: 0;
+    background-color: transparent;
+    width: fit-content;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  #follow-info {
+    flex-direction: column;
+  }
+  .info {
+    flex-direction: column-reverse;
+    align-self: center;
+  }
+}

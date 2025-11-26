@@ -74,25 +74,27 @@ function renderProfile(data) {
   let cardInfo = {
     avatar_url: "",
     name: "",
+    login: "",
     bio: "",
     company: "",
     followers: 0,
     following: 0,
     location: "",
   };
-  console.log("cardInfo:", cardInfo);
+  // console.log("cardInfo:", cardInfo);
+  let requiredData = [
+    "name",
+    "login",
+    "bio",
+    "company",
+    "followers",
+    "following",
+    "location",
+    "public_repos",
+    "avatar_url",
+    "repos_url",
+  ];
   Object.entries(data).forEach(([key, value]) => {
-    let requiredData = [
-      "name",
-      "bio",
-      "company",
-      "followers",
-      "following",
-      "location",
-      "public_repos",
-      "avatar_url",
-      "repos_url",
-    ];
     if (requiredData.includes(key)) {
       cardInfo[key] = value;
     } else {
@@ -106,13 +108,13 @@ function renderProfile(data) {
 }
 
 function renderAvatar(src) {
-  console.log("img loading");
   profileImg.src = src;
 }
 
 function renderCard({
   avatar_url,
   name,
+  login,
   bio,
   company,
   followers,
@@ -121,12 +123,16 @@ function renderCard({
 }) {
   resetCardInfo();
   renderAvatar(avatar_url);
-  cardName.textContent = name;
-  cardBio.textContent = bio;
-  cardCompany.textContent = company;
+  cardName.textContent = name ?? login;
+  cardBio.textContent = bio ?? "";
+  cardCompany.textContent = company ?? "";
   cardfollowers.lastChild.textContent += followers;
   cardfollowing.lastChild.textContent += following;
-  cardlocation.textContent += location;
+  if (location || location !== null) {
+    cardlocation.textContent += location;
+  } else {
+    document.getElementById("location-info").style.display = "none";
+  }
 }
 
 async function fetchGithubRepos(url) {
@@ -214,7 +220,7 @@ async function renderRepos(url) {
         repoInfo[key] = value ?? ""; // handle null desc value
       }
     });
-    console.log(repoInfo);
+    // console.log(repoInfo);
     let card = buildRepoCard(repoInfo);
     profile.append(card);
   });
