@@ -262,6 +262,7 @@ a:hover {
   .info {
     flex-direction: column-reverse;
     align-self: center;
+    align-items: stretch;
   }
 }
 
