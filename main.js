@@ -1,6 +1,10 @@
 let profile = document.getElementById("profile");
 let fetchBtn = document.getElementById("fetchBtn");
 let username = document.getElementById("username");
+let profileImg = document.getElementsByClassName("profile-img")[0];
+let cardName = document.getElementById("name");
+let cardBio = document.getElementById("bio");
+let cardCompany = document.getElementById("company");
 let lastUserFetched;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -51,10 +55,19 @@ async function fetchGithubAPI() {
 }
 
 function renderProfile(data) {
+  let cardInfo = { name: "", bio: "", company: "" };
+  console.log("cardInfo:", cardInfo);
   Object.entries(data).forEach(([key, value]) => {
     // skip non-nessesary items
     if (value === null || value === "") {
       return;
+    }
+    if (key === "avatar_url") {
+      renderAvatar(value);
+      // return;
+    }
+    if (key === "name" || key === "bio" || key === "company") {
+      cardInfo[key] = value;
     }
     let item = document.createElement("div");
     item.classList.add("profile-details-item");
@@ -63,12 +76,19 @@ function renderProfile(data) {
     } else {
       item.innerHTML = `<b>${key}:</b> ${value}`;
     }
-
     profile.appendChild(item);
   });
+  renderCard(cardInfo);
 }
 
-let avatar = document.createElement("img");
-avatar.src = "user-icon-vector-profile-solid.webp";
+function renderAvatar(src) {
+  console.log("img loading");
+  profileImg.src = src;
+}
 
-document.getElementsByClassName("avatar").innerHTML = avatar;
+function renderCard({ name, bio, company }) {
+  console.log(name, bio, company);
+  cardName.textContent = name;
+  cardBio.textContent = bio;
+  cardCompany.textContent = company;
+}

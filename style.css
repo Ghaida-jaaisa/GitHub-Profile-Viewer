@@ -35,7 +35,8 @@ form {
   display: flex;
   justify-content: center;
   gap: 8px;
-  margin-bottom: 100px;
+  margin: 100px auto;
+  max-width: 75%;
 }
 
 input {
@@ -88,7 +89,7 @@ a:hover {
 /* New Style */
 
 #profile-card {
-  width: 50%;
+  width: 33%;
   height: fit-content;
   background: whitesmoke;
   padding: 60px 20px 20px;
@@ -101,6 +102,8 @@ a:hover {
   overflow: visible;
 }
 .profile-avatar-wrapper {
+  background-color: white;
+  border-radius: 50%;
   position: absolute;
   top: 0;
   left: 50%;
@@ -138,14 +141,13 @@ a:hover {
   align-items: flex-start;
 }
 
-#backToTop{
+#backToTop {
   position: fixed;
   right: 25px;
   bottom: 25px;
   display: none;
 }
 
-#backToTop:hover{
+#backToTop:hover {
   transform: translateY(-10px);
 }
-
