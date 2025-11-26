@@ -151,3 +151,38 @@ a:hover {
 #backToTop:hover {
   transform: translateY(-10px);
 }
+
+#following {
+  background: #6c63ff;
+}
+#followers {
+  background: #20c997;
+}
+
+.number {
+  font-weight: bold;
+}
+
+.follow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+  border-radius: 20px;
+  padding: 5px 10px;
+}
+
+.stat {
+  /* color: var(--text); */
+}
+
+.follow img {
+  width: 20px;
+}
+
+#follow-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}

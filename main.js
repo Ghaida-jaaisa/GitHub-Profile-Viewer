@@ -83,6 +83,7 @@ function renderProfile(data) {
     let item = document.createElement("div");
     item.classList.add("profile-details-item");
     if (key.includes("url")) {
+      return;
       item.innerHTML = `<b>${key}:</b><a href = ${value} target='_blank'>${value}</a>`;
     } else {
       item.innerHTML = `<b>${key}:</b> ${value}`;
@@ -102,4 +103,11 @@ function renderCard({ name, bio, company }) {
   cardName.textContent = name;
   cardBio.textContent = bio;
   cardCompany.textContent = company;
+}
+
+async function fetchGithubRep(url) {
+  fetch(url)
+    .then((r) => r.json())
+    .then(data);
+    console.log(data)
 }
