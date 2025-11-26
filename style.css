@@ -120,7 +120,7 @@ a:hover {
 
 .profile-repositories {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 15px;
 }
 
@@ -242,4 +242,8 @@ a:hover {
   color: whitesmoke;
   text-decoration: none;
   text-decoration: none !important;
+}
+
+.info {
+  align-self: flex-end;
 }
