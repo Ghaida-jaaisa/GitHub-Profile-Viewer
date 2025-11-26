@@ -124,21 +124,21 @@ a:hover {
   gap: 25px;
 }
 
-.profile-details {
+.profile-repositories {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 15px;
 }
 
-.profile-details-item {
+.profile-repo {
   background-color: var(--small-card);
-  border-radius: 20px;
-  padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 5px;
   justify-content: space-around;
   align-items: flex-start;
+  border-radius: 20px;
+  padding: 20px;
 }
 
 #backToTop {
@@ -163,26 +163,52 @@ a:hover {
   font-weight: bold;
 }
 
-.follow {
+.follow,
+#location-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 5px;
   border-radius: 20px;
   padding: 5px 10px;
+  margin: 5px;
 }
 
 .stat {
   /* color: var(--text); */
 }
 
-.follow img {
+.follow img,
+#location-img,
+.starContainer img{
   width: 20px;
 }
 
-#follow-info {
+#follow-info,
+#location-info {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 15px;
 }
+
+.info {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+.starContainer {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 5px;
+}
+
+.repo_link {
+  background-color: #6c63ff;
+  padding: 5px 10px;
+  border-radius: 20px;
+  text-decoration: none;
+}
+
