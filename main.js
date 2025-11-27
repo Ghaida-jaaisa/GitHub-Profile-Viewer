@@ -12,7 +12,8 @@ const cardfollowing = document.getElementById("following");
 const cardlocation = document.getElementById("location");
 const userData = document.getElementById("userData");
 const form = document.getElementsByTagName("form");
-
+//
+const upChevron = document.getElementById("up-chevron");
 let lastUserFetched;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -252,3 +253,10 @@ function removeSkeleton() {
   const skeltons = document.querySelectorAll(".skeleton-profile-repo");
   skeltons.forEach((skel) => skel.remove());
 }
+
+upChevron.addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+});

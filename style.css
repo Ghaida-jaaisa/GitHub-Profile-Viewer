@@ -309,6 +309,23 @@ a:hover {
   position: fixed;
   right: 30px;
   bottom: 30px;
+  animation: upDown 1s linear infinite alternate;
+}
+
+#up-chevron:hover {
+  cursor: grab;
+}
+
+@keyframes upDown {
+  0% {
+    transform: translateY(5px);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 
 /* ==== Media Query === */
@@ -318,6 +335,9 @@ a:hover {
   }
   #profile-card {
     width: 50%;
+  }
+  .container {
+    max-width: calc(100% - 200px);
   }
 }
 
@@ -373,6 +393,5 @@ a:hover {
   }
   #up-chevron {
     left: 10px;
-    
   }
 }
