@@ -293,7 +293,6 @@ a:hover {
   border: none;
 }
 
-
 @keyframes skeleton-loading {
   0% {
     background-color: hsl(200, 20%, 70%);
@@ -304,6 +303,14 @@ a:hover {
     /* background-color: hsl(207, 29%, 92%); */
   }
 }
+
+#up-chevron {
+  width: 40px;
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+}
+
 /* ==== Media Query === */
 @media screen and (max-width: 1250px) {
   #follow-info {
@@ -363,5 +370,9 @@ a:hover {
   .info {
     flex-direction: column-reverse;
     align-self: center;
+  }
+  #up-chevron {
+    left: 10px;
+    
   }
 }
