@@ -14,6 +14,7 @@ const userData = document.getElementById("userData");
 const form = document.getElementsByTagName("form");
 //
 const upChevron = document.getElementById("up-chevron");
+let publicRepoCount = 0;
 let lastUserFetched;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -30,7 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 fetchBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  // fetchUserData();
   fetchGithubAPI();
 });
 
@@ -45,8 +45,6 @@ function getUsername() {
 
 async function fetchGithubAPI() {
   profileCard.style.display = "none";
-  profile.querySelectorAll(".profile-repo").forEach((r) => r.remove());
-
   let username = getUsername();
   if (username === "") {
     userData.style.display = "none";
@@ -57,8 +55,12 @@ async function fetchGithubAPI() {
     console.log("Request cancelled");
     return;
   }
+
+  /// NEW REQUEST
   // Clear
-  // profile.innerHTML = "";
+  clearRepoSection();
+  profileCard.style.display = "";
+
   let url = `https://api.github.com/users/${username}`;
   fetch(url)
     .then((r) => r.json())
@@ -67,9 +69,9 @@ async function fetchGithubAPI() {
         profile.innerHTML = "<p>User not found</p>";
         return;
       }
-      profileCard.style.display = "";
       renderProfile(data);
       lastUserFetched = username;
+      // store current request
       localStorage.setItem("latestRequest", JSON.stringify(data));
     })
     .catch((err) => console.error("Error while fetching data:", err.message));
@@ -100,6 +102,8 @@ function renderProfile(data) {
     "avatar_url",
     "repos_url",
   ];
+
+  // Need Re-factoring -- no need for this loop
   Object.entries(data).forEach(([key, value]) => {
     if (requiredData.includes(key)) {
       cardInfo[key] = value;
@@ -108,6 +112,9 @@ function renderProfile(data) {
     }
     if (key === "repos_url") {
       renderRepos(value);
+    }
+    if (key === "public_repos") {
+      publicRepoCount = value;
     }
   });
   renderCard(cardInfo);
@@ -211,27 +218,26 @@ function buildRepoCard({ name, description, stargazers_count, svn_url }) {
   return item;
 }
 async function renderRepos(url) {
-  // profile.innerHTML = "";
-  profile.querySelectorAll(".profile-repo").forEach((r) => r.remove());
+  clearRepoSection();
   showSkeleton();
   let data = await fetchGithubRepos(url);
+  let RepoCountEle = buildRepoCountElement(publicRepoCount);
+  profile.appendChild(RepoCountEle);
   removeSkeleton();
-
   const repoInfo = {
     name: "",
     description: "",
     stargazers_count: 0,
     svn_url: "",
   };
-
   let requiredData = ["name", "svn_url", "description", "stargazers_count"];
   Object.entries(data).forEach(([key, value]) => {
+    // Retrieve needed values
     Object.entries(value).forEach(([key, value]) => {
       if (requiredData.includes(key)) {
         repoInfo[key] = value ?? ""; // handle null desc value
       }
     });
-    // console.log(repoInfo);
     let card = buildRepoCard(repoInfo);
     profile.append(card);
   });
@@ -260,3 +266,25 @@ upChevron.addEventListener("click", () => {
     behavior: "smooth",
   });
 });
+
+function buildRepoCountElement(count) {
+  const container = document.createElement("div");
+  container.id = "publicReposCount";
+
+  const title = document.createElement("h2");
+  title.textContent = "Public Repos:";
+
+  const number = document.createElement("p");
+  number.classList.add("repoCount");
+  number.textContent = count;
+
+  container.appendChild(title);
+  container.appendChild(number);
+
+  return container;
+}
+
+function clearRepoSection() {
+  profile.querySelectorAll(".profile-repo").forEach((r) => r.remove()); // clear profile with affech skeleton
+  profile.querySelectorAll("#publicReposCount").forEach((r) => r.remove());
+}
