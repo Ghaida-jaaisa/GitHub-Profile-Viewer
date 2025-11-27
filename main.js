@@ -187,7 +187,7 @@ function buildRepoCard({ name, description, stargazers_count, svn_url }) {
   const starContainer = document.createElement("div");
   starContainer.classList.add("starContainer");
   const starIcon = document.createElement("img");
-  starIcon.src = "star-solid-full.svg";
+  starIcon.src = "imgs/star-solid-full.svg";
   const star = document.createElement("span");
   star.textContent = "Star";
   const starCount = document.createElement("span");
