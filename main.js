@@ -3,6 +3,7 @@ const fetchBtn = document.getElementById("fetchBtn");
 const username = document.getElementById("username");
 const profileImg = document.getElementsByClassName("profile-img")[0];
 // Card Info
+const profileCard = document.getElementById("profile-card");
 const cardName = document.getElementById("name");
 const cardBio = document.getElementById("bio");
 const cardCompany = document.getElementById("company");
@@ -42,6 +43,9 @@ function getUsername() {
 }
 
 async function fetchGithubAPI() {
+  profileCard.style.display = "none";
+  profile.querySelectorAll(".profile-repo").forEach((r) => r.remove());
+
   let username = getUsername();
   if (username === "") {
     userData.style.display = "none";
@@ -53,7 +57,7 @@ async function fetchGithubAPI() {
     return;
   }
   // Clear
-  profile.innerHTML = "";
+  // profile.innerHTML = "";
   let url = `https://api.github.com/users/${username}`;
   fetch(url)
     .then((r) => r.json())
@@ -62,6 +66,7 @@ async function fetchGithubAPI() {
         profile.innerHTML = "<p>User not found</p>";
         return;
       }
+      profileCard.style.display = "";
       renderProfile(data);
       lastUserFetched = username;
       localStorage.setItem("latestRequest", JSON.stringify(data));
@@ -142,7 +147,7 @@ async function fetchGithubRepos(url) {
     if (!result.ok) {
       throw new Error(`HTTP Error: ${response.status}`);
     }
-    const data = result.json();
+    const data = await result.json();
     return data;
   } catch (err) {
     console.error("Error occurred while fetching repos:", err.message);
@@ -199,13 +204,18 @@ function buildRepoCard({ name, description, stargazers_count, svn_url }) {
   info.append(viewBtn);
   //
   item.append(title);
-  item.append(description);
+  item.append(desc);
   item.append(info);
 
   return item;
 }
 async function renderRepos(url) {
+  // profile.innerHTML = "";
+  profile.querySelectorAll(".profile-repo").forEach((r) => r.remove());
+  showSkeleton();
   let data = await fetchGithubRepos(url);
+  removeSkeleton();
+
   const repoInfo = {
     name: "",
     description: "",
@@ -224,4 +234,21 @@ async function renderRepos(url) {
     let card = buildRepoCard(repoInfo);
     profile.append(card);
   });
+}
+
+function showSkeleton() {
+  const template = document.getElementById("skeleton-profile-repo");
+  // console.log(template);
+  const templateContent = template.content;
+  // console.log("templateContent: ", templateContent);
+  const count = 2;
+  for (let i = 1; i <= count; i++) {
+    const clone = templateContent.cloneNode(true);
+    profile.appendChild(clone);
+  }
+}
+
+function removeSkeleton() {
+  const skeltons = document.querySelectorAll(".skeleton-profile-repo");
+  skeltons.forEach((skel) => skel.remove());
 }
