@@ -150,8 +150,8 @@ function renderCard({
   cardName.textContent = name ?? login;
   cardBio.textContent = bio ?? "";
   cardCompany.textContent = company ?? "";
-  cardfollowers.lastChild.textContent += followers;
-  cardfollowing.lastChild.textContent += following;
+  cardfollowers.querySelector(".number").textContent = followers;
+  cardfollowing.querySelector(".number").textContent = following;
   if (location || location !== null) {
     cardlocation.textContent += location;
   } else {
