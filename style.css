@@ -130,7 +130,8 @@ a:hover {
   border-radius: 50%;
 }
 
-.profile-img:not([src]) {
+.profile-img:not([src]),
+.profile-img[src=""] {
   display: none;
 }
 

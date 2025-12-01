@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css" />
     <link
       rel="shortcut icon"
-      href="magnifying-glass-solid-full.svg"
+      href="imgs/magnifying-glass-solid-full.svg"
       type="image/x-icon"
     />
   </head>
@@ -25,7 +25,7 @@
         <button type="submit" class="btn" id="fetchBtn">Fetch Profile</button>
       </form>
       <section id="userData">
-        <div id="profile-card" hidden>
+        <div id="profile-card">
           <div class="profile-avatar-wrapper">
             <img src="" alt="profile-avatar" class="profile-img" />
           </div>
@@ -57,40 +57,21 @@
             <span id="location"></span>
           </div>
         </div>
-        <template id="">
+
+        <!-- <template id="skeleton-profile-card">
           <div id="profile-card" hidden>
             <div class="profile-avatar-wrapper">
               <img src="" alt="profile-avatar" class="profile-img" />
             </div>
-            <h2 id="name"></h2>
-            <p id="bio"></p>
-            <p id="company"></p>
-            <div id="follow-info">
-              <div id="followers" class="follow">
-                <img
-                  src="imgs/arrow-turn-down-solid-full.svg"
-                  alt="arrow-turn-down_icon"
-                />
-                <span class="stat"> Follower </span>
-                <span class="number"></span>
-              </div>
-              <div id="following" class="follow">
-                <img
-                  src="imgs/arrow-turn-up-solid-full.svg"
-                  alt="arrow_turn_up_icon"
-                />
-                <span class="stat"> Following </span>
-                <span class="number"></span>
-              </div>
+            <div class="skeleton-title">
+              <div class="skeleton skeleton-text">This template</div>
+              <div class="skeleton skeleton-text"></div>
             </div>
-            <div id="location-info">
-              <span>
-                <img src="imgs/location.svg" alt="location" id="location-img" />
-              </span>
-              <span id="location"></span>
-            </div>
+            <div class="skeleton skeleton-text"></div>
+            <div class="skeleton skeleton-text"></div>
+            <div class="skeleton skeleton-text"></div>
           </div>
-        </template>
+        </template> -->
 
         <div id="profile" class="profile-repositories">
           <template id="skeleton-profile-repo">

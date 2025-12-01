@@ -1,5 +1,10 @@
 async function fetchGithubAPI() {
   profileCard.style.display = "none";
+  // Array.from(profileCard.children).forEach((el) => {
+  //   el.classList.toggle("skeleton");
+  //   el.classList.toggle("skeleton-text");
+  // });
+
   let username = getUsername();
   if (username === "") {
     userData.style.display = "none";
@@ -14,6 +19,7 @@ async function fetchGithubAPI() {
   /// NEW REQUEST
   // Clear
   clearRepoSection();
+  clearProfileCard();
   profileCard.style.display = "";
 
   try {
