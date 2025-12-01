@@ -78,7 +78,6 @@ async function fetchGithubAPI() {
     lastUserFetched = username;
     localStorage.setItem("latestRequest", JSON.stringify(data));
 
-    profileCard.style.display = "block";
     profile.innerHTML = "";
   } catch (error) {
     profile.innerHTML = `<p>${error.message}</p>`;
