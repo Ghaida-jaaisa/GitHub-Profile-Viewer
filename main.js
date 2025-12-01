@@ -16,8 +16,11 @@ const form = document.getElementsByTagName("form");
 const upChevron = document.getElementById("up-chevron");
 let publicRepoCount = 0;
 let lastUserFetched;
+let Cardtemplate, SkeletonProfileCardtemplate;
 
 document.addEventListener("DOMContentLoaded", () => {
+  Cardtemplate = document.getElementById("repo-card");
+
   const saved = localStorage.getItem("latestRequest");
   if (saved) {
     const latestRequest = JSON.parse(saved);
@@ -182,51 +185,18 @@ function resetCardInfo() {
 }
 
 function buildRepoCard({ name, description, stargazers_count, svn_url }) {
-  // recieve string data
-  const item = document.createElement("div");
-  item.classList.add("profile-repo");
-  const title = document.createElement("h3");
-  title.textContent = name;
-  //
-  const desc = document.createElement("p");
-  desc.textContent = description;
-  //
-  const info = document.createElement("div");
-  info.classList.add("info");
-  // Star
-  const starContainer = document.createElement("div");
-  starContainer.classList.add("starContainer");
-  const starIcon = document.createElement("img");
-  starIcon.src = "imgs/star-solid-full.svg";
-  const star = document.createElement("span");
-  star.textContent = "Star";
-  const starCount = document.createElement("span");
-  starCount.classList.add("starCount"); // handle in css
-  starCount.textContent = stargazers_count;
-  // View repo
+  const card = Cardtemplate.content.cloneNode(true);
 
-  const viewBtn = document.createElement("button");
-  viewBtn.classList.add("Repobtn", "liquid");
-  const viewRepo = document.createElement("a");
-  viewRepo.classList.add("repo_link");
-  viewRepo.textContent = "Visit Repo";
-  viewRepo.href = svn_url;
-  viewRepo.target = "_blank";
-  viewBtn.appendChild(viewRepo);
-  //
-  starContainer.append(starIcon);
-  starContainer.append(star);
-  starContainer.append(starCount);
-  //
-  info.append(starContainer);
-  info.append(viewBtn);
-  //
-  item.append(title);
-  item.append(desc);
-  item.append(info);
+  card.querySelector(".repo-title").textContent = name;
+  card.querySelector(".repo-desc").textContent = description;
+  card.querySelector(".starCount").textContent = stargazers_count;
 
-  return item;
+  const link = card.querySelector(".repo_link");
+  link.href = svn_url;
+
+  return card;
 }
+
 async function renderRepos(url) {
   clearRepoSection();
   showSkeleton();
@@ -254,10 +224,10 @@ async function renderRepos(url) {
 }
 
 function showSkeleton() {
-  const template = document.getElementById("skeleton-profile-repo");
-  // console.log(template);
-  const templateContent = template.content;
-  // console.log("templateContent: ", templateContent);
+  SkeletonProfileCardtemplate = document.getElementById(
+    "skeleton-profile-repo"
+  );
+  const templateContent = SkeletonProfileCardtemplate.content;
   const count = 2;
   for (let i = 1; i <= count; i++) {
     const clone = templateContent.cloneNode(true);

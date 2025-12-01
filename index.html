@@ -10,7 +10,6 @@
       href="magnifying-glass-solid-full.svg"
       type="image/x-icon"
     />
-    <script src="main.js" defer></script>
   </head>
   <body>
     <main class="container">
@@ -76,10 +75,27 @@
               </div>
             </div>
           </template>
+          <template id="repo-card">
+            <div class="profile-repo">
+              <h3 class="repo-title"></h3>
+              <p class="repo-desc"></p>
+              <div class="info">
+                <div class="starContainer">
+                  <img src="imgs/star-solid-full.svg" />
+                  <span>Star</span>
+                  <span class="starCount"></span>
+                </div>
+                <button class="Repobtn liquid">
+                  <a class="repo_link" target="_blank">Visit Repo</a>
+                </button>
+              </div>
+            </div>
+          </template>
         </div>
       </section>
     </main>
 
-    <img src="imgs/up-chevron.svg" alt="up-chevron" id="up-chevron">
+    <img src="imgs/up-chevron.svg" alt="up-chevron" id="up-chevron" />
+    <script src="main.js" defer></script>
   </body>
 </html>
