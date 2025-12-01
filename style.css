@@ -178,7 +178,7 @@ a:hover {
   background: #20c997;
 }
 
-.number{
+.number {
   font-weight: 700;
 }
 .repoCount {
@@ -421,5 +421,10 @@ a:hover {
   }
   #up-chevron {
     left: 10px;
+  }
+
+  body,
+  .container {
+    max-width: 100%;
   }
 }

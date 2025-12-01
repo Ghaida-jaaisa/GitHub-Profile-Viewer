@@ -25,7 +25,7 @@
         <button type="submit" class="btn" id="fetchBtn">Fetch Profile</button>
       </form>
       <section id="userData">
-        <div id="profile-card">
+        <div id="profile-card" hidden>
           <div class="profile-avatar-wrapper">
             <img src="" alt="profile-avatar" class="profile-img" />
           </div>
@@ -57,13 +57,48 @@
             <span id="location"></span>
           </div>
         </div>
+        <template id="">
+          <div id="profile-card" hidden>
+            <div class="profile-avatar-wrapper">
+              <img src="" alt="profile-avatar" class="profile-img" />
+            </div>
+            <h2 id="name"></h2>
+            <p id="bio"></p>
+            <p id="company"></p>
+            <div id="follow-info">
+              <div id="followers" class="follow">
+                <img
+                  src="imgs/arrow-turn-down-solid-full.svg"
+                  alt="arrow-turn-down_icon"
+                />
+                <span class="stat"> Follower </span>
+                <span class="number"></span>
+              </div>
+              <div id="following" class="follow">
+                <img
+                  src="imgs/arrow-turn-up-solid-full.svg"
+                  alt="arrow_turn_up_icon"
+                />
+                <span class="stat"> Following </span>
+                <span class="number"></span>
+              </div>
+            </div>
+            <div id="location-info">
+              <span>
+                <img src="imgs/location.svg" alt="location" id="location-img" />
+              </span>
+              <span id="location"></span>
+            </div>
+          </div>
+        </template>
+
         <div id="profile" class="profile-repositories">
           <template id="skeleton-profile-repo">
             <div class="profile-repo skeleton-profile-repo">
-              <h3 class="skeleton-title">
+              <div class="skeleton-title">
                 <div class="skeleton skeleton-text"></div>
                 <div class="skeleton skeleton-text"></div>
-              </h3>
+              </div>
 
               <div class="skeleton skeleton-text"></div>
               <div class="skeleton skeleton-text"></div>
@@ -96,6 +131,12 @@
     </main>
 
     <img src="imgs/up-chevron.svg" alt="up-chevron" id="up-chevron" />
-    <script src="main.js" defer></script>
+
+    <!-- Script -->
+    <script src="js/api.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="js/repos.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>
