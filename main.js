@@ -16,10 +16,13 @@ const form = document.getElementsByTagName("form");
 const upChevron = document.getElementById("up-chevron");
 let publicRepoCount = 0;
 let lastUserFetched;
-let Cardtemplate, SkeletonProfileCardtemplate;
+let Cardtemplate, SkeletonProfileCardtemplate; // to avoid loading problems
 
 document.addEventListener("DOMContentLoaded", () => {
   Cardtemplate = document.getElementById("repo-card");
+  SkeletonProfileCardtemplate = document.getElementById(
+    "skeleton-profile-repo"
+  );
 
   const saved = localStorage.getItem("latestRequest");
   if (saved) {
@@ -28,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderProfile(latestRequest);
   } else {
     // first time
-    userData.style.display = "none";
+    userData.style.display = "none"; // no data ta display
   }
 });
 
@@ -224,9 +227,6 @@ async function renderRepos(url) {
 }
 
 function showSkeleton() {
-  SkeletonProfileCardtemplate = document.getElementById(
-    "skeleton-profile-repo"
-  );
   const templateContent = SkeletonProfileCardtemplate.content;
   const count = 2;
   for (let i = 1; i <= count; i++) {
