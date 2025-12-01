@@ -61,20 +61,31 @@ async function fetchGithubAPI() {
   clearRepoSection();
   profileCard.style.display = "";
 
-  let url = `https://api.github.com/users/${username}`;
-  fetch(url)
-    .then((r) => r.json())
-    .then((data) => {
-      if (data.message === "Not Found") {
-        profile.innerHTML = "<p>User not found</p>";
-        return;
+  try {
+    const url = `https://api.github.com/users/${username}`;
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      if (response.status === 404) {
+        throw new Error("User not found");
       }
-      renderProfile(data);
-      lastUserFetched = username;
-      // store current request
-      localStorage.setItem("latestRequest", JSON.stringify(data));
-    })
-    .catch((err) => console.error("Error while fetching data:", err.message));
+      throw new Error("Something went wrong, try again later");
+    }
+
+    const data = await response.json();
+
+    renderProfile(data);
+    lastUserFetched = username;
+    localStorage.setItem("latestRequest", JSON.stringify(data));
+
+    profileCard.style.display = "block";
+    profile.innerHTML = "";
+  } catch (error) {
+    profile.innerHTML = `<p>${error.message}</p>`;
+    profile.classList.toggle("error");
+    profile.style.gridColumn = "1/3";
+    profileCard.style.display = "none";
+  }
 }
 
 function renderProfile(data) {
